@@ -84,4 +84,6 @@ async def search(Phone : str, Address : str, file: UploadFile = File(...)):
 
 @app.get("/snap")
 def pdf(path: str):
+    extension = path.split('.')[-1]
+    if extension not in ['jpg','png','jpeg'] : raise HTTPException(status_code=404, detail="Not Authorized to access this Resource/API")
     return FileResponse(path)
