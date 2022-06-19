@@ -43,6 +43,10 @@ class Info(BaseModel):
   Phone : str
 
 
+@app.get("/test")
+async def test()
+    return {status: "Working"}
+
 @app.post("/encode")
 async def encode(file: UploadFile = File(...)):
     extension = '.'+file.filename.split('.')[-1]
