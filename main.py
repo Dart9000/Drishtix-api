@@ -71,8 +71,8 @@ async def search(Phone : str, Address : str, file: UploadFile = File(...)):
         image.write(content)
         image.close()
     data = database.find_one({"_id" : "dataset"})
-    data_arr = [ np.array(i) for i in data["value"] ]
-    vector_arr = [ np.array(i) for i in data["key"] ]
+    data_arr = data["value"]
+    vector_arr = np.array(data["key"])
     res = face.search(temp.name, data_arr, vector_arr)
     for i in res:
       packet = criminal.find_one( {"_id": ObjectId(i)} )
