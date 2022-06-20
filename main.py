@@ -100,5 +100,5 @@ def pdf(path: str):
     print("test :",path)
     extension = path.split('.')[-1]
     if extension not in ['jpg','png','jpeg','blob'] : raise HTTPException(status_code=404, detail="Not Authorized to access this Resource/API")
-    if extention == 'blob': path = getcwd() + "/temp.png"
+    if extension == 'blob': path = getcwd() + "/temp.png"
     return FileResponse(path)
