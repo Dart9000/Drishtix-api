@@ -53,7 +53,6 @@ class Face:
       face_distances = face_recognition.face_distance(sub_vector_arr, face_encoding)
       
       best_match_index = np.argmin(face_distances)
-      print(face_distances[best_match_index])
       if matches[best_match_index] and face_distances[best_match_index]<0.55:
           data = sub_data_arr[best_match_index]
           result.append(data)

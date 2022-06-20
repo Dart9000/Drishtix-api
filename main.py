@@ -56,7 +56,6 @@ async def encode(file: UploadFile = File(...)):
         image.write(content)
         image.close()
     encoding = face.encode(temp.name)
-    print(type(encoding))
     temp.close()
     return {"Task" : "Image Encoding", "Status" : True, "encoding" : list(encoding)}
 
@@ -71,17 +70,24 @@ async def search(Phone : str, Address : str, file: UploadFile = File(...)):
         image.write(content)
         image.close()
     data = database.find_one({"_id" : "dataset"})
-    data_arr = data["value"]
-    vector_arr = np.array(data["key"])
+    data_arr = []
+    vector_arr = []
+    length = len(data["key"])
+    for i in range(length):
+      if data["key"][i] != "":
+        vector_arr.append(np.array([float(n) for n in data["key"][i]]))
+        data_arr.append(data["value"][i])
     res = face.search(temp.name, data_arr, vector_arr)
+    print(res)
     for i in res:
       packet = criminal.find_one( {"_id": ObjectId(i)} )
       Name         = packet["name"]
-      Image_Link   = "drishtix-api.herokuapp.com/snap?"+temp.name
+      Image_Link   = "drishtix-api.herokuapp.com/snap?path="+temp.name
       Profile_Link = "sampleapp.com/profile/"+str(i) 
       Address      = Address
       Contact      = "91" + Phone
       Time         = str(datetime.now(IST))
+      print(Contact,Image_Link,Name,Profile_Link,Address,Time)
       api.alert(Contact,Image_Link,Name,Profile_Link,Address,Time)
     temp.close()    
     return {"Task" : "Query Search", "Status" : True}
