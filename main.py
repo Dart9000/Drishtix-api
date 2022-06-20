@@ -12,6 +12,7 @@ import pytz
 import os
 import tempfile
 import numpy as np
+import time
 
 
 #Loading Database
@@ -89,9 +90,8 @@ async def search(Phone : str, Address : str, file: UploadFile = File(...)):
       Time         = str(datetime.now(IST))
       print(Contact,Image_Link,Name,Profile_Link,Address,Time)
       api.alert(Contact,Image_Link,Name,Profile_Link,Address,Time)
-    print(1)    
-    temp.close()
-    print(2)    
+    time.sleep(0.5)
+    temp.close() 
     return {"Task" : "Query Search", "Status" : True}
 
 @app.get("/snap")
