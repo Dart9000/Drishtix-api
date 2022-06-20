@@ -7,6 +7,7 @@ from pymongo import MongoClient
 from dotenv import load_dotenv  
 from bson.objectid import ObjectId
 from pydantic import BaseModel
+from os import getcwd
 from datetime import datetime
 import pytz
 import os
@@ -90,7 +91,7 @@ async def search(Phone : str, Address : str, file: UploadFile = File(...)):
       Time         = str(datetime.now(IST))
       print(Contact,Image_Link,Name,Profile_Link,Address,Time)
       api.alert(Contact,Image_Link,Name,Profile_Link,Address,Time)
-    time.sleep(1)
+    time.sleep(0.5)
     temp.close() 
     return {"Task" : "Query Search", "Status" : True}
 
@@ -99,4 +100,5 @@ def pdf(path: str):
     print("test :",path)
     extension = path.split('.')[-1]
     if extension not in ['jpg','png','jpeg','blob'] : raise HTTPException(status_code=404, detail="Not Authorized to access this Resource/API")
+    if extention == 'blob': path = getcwd() + "/temp.png
     return FileResponse(path)
