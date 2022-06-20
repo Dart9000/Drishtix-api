@@ -84,13 +84,13 @@ async def search(Phone : str, Address : str, file: UploadFile = File(...)):
       packet = criminal.find_one( {"_id": ObjectId(i)} )
       Name         = packet["name"]
       Image_Link   = "drishtix-api.herokuapp.com/snap?path="+temp.name
-      Profile_Link = "sampleapp.com/profile/"+str(i) 
+      Profile_Link = "localhost:3000/criminalProfile/"+str(i) 
       Address      = Address
       Contact      = "91" + Phone
       Time         = str(datetime.now(IST))
       print(Contact,Image_Link,Name,Profile_Link,Address,Time)
       api.alert(Contact,Image_Link,Name,Profile_Link,Address,Time)
-    time.sleep(0.5)
+    time.sleep(1)
     temp.close() 
     return {"Task" : "Query Search", "Status" : True}
 
