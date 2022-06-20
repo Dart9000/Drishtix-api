@@ -18,8 +18,8 @@ import numpy as np
 load_dotenv()
 URI = os.getenv("MONGO_URI")
 client    = MongoClient(URI)
-database  = client.Drishtix.Dataset
-criminal  = client.Drishtix.Criminal    
+database  = client.drishtiDB.datasets
+criminal  = client.drishtiDB.criminals    
 
 #Modules
 IST = pytz.timezone('Asia/Kolkata')
@@ -55,7 +55,7 @@ class Encode(BaseModel):
 async def encode(pack : Encode):
     encoding = face.encode(pack.image_url)
     ID = pack.key
-    query = { "_id": "data" }
+    query = { "id": "data" }
     data = database.find_one(query)
     key_ = data["key"].append(encoding)
     value_ = data["value"].append(ID)
