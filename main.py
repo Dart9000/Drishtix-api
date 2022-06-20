@@ -46,19 +46,22 @@ class Info(BaseModel):
   Address : str
   Phone : str
 
+class Encode(BaseModel):
+  image_url : str
+  key : str
+
 
 @app.post("/encode")
-async def encode(file: UploadFile = File(...)):
-    extension = '.'+file.filename.split('.')[-1]
-    temp = tempfile.NamedTemporaryFile(suffix=extension)
-    with open(temp.name, 'wb') as image:
-        content = await file.read()
-        image.write(content)
-        image.close()
-    encoding = face.encode(temp.name)
-    print(type(encoding))
-    temp.close()
-    return {"Task" : "Image Encoding", "Status" : True, "encoding" : list(encoding)}
+async def encode(pack : Encode):
+    encoding = face.encode(pack.image_url)
+    ID = pack.key
+    query = { "_id": "data" }
+    data = database.find_one(query)
+    key_ = data["key"].append(encoding)
+    value_ = data["value"].append(ID)
+    new_values = { "$set": { "key" : key_ , "value" : value_ } }
+    database.update_one( query, new_values)
+    return { "Status" : True }
 
 
 
