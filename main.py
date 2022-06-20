@@ -89,7 +89,9 @@ async def search(Phone : str, Address : str, file: UploadFile = File(...)):
       Time         = str(datetime.now(IST))
       print(Contact,Image_Link,Name,Profile_Link,Address,Time)
       api.alert(Contact,Image_Link,Name,Profile_Link,Address,Time)
-    temp.close()    
+    print(1)    
+    temp.close()
+    print(2)    
     return {"Task" : "Query Search", "Status" : True}
 
 @app.get("/snap")
