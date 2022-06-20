@@ -39,15 +39,10 @@ app.add_middleware(
 )
 
 
-
 class Info(BaseModel):
   Address : str
   Phone : str
 
-
-@app.get("/test")
-async def test()
-    return {status: "Working"}
 
 @app.post("/encode")
 async def encode(file: UploadFile = File(...)):
