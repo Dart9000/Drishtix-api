@@ -28,7 +28,10 @@ face = Face()
 
 app = FastAPI()
 
-origins = ["*","http://localhost:3000/","http://localhost:3002/"]
+origins = [
+    "http://localhost:3000",
+    "http://localhost:3002",
+]
 
 app.add_middleware(
     CORSMiddleware,
