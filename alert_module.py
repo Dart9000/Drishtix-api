@@ -79,6 +79,7 @@ class Whatsapp_Cloud_API:
       }
     })
     response = requests.request("POST", self.__url__, headers=self.__headers__, data=payload)
+    print(response.text)
     return self.validate(response.text)
     
   #------------------------------------------------------------------------------------------
