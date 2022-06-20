@@ -1,5 +1,5 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from alert_module import Whatsapp_Cloud_API
 from face_module import Face
@@ -28,10 +28,7 @@ face = Face()
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:3000",
-    "http://localhost:3002",
-]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
