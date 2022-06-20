@@ -58,7 +58,7 @@ async def encode(file: UploadFile = File(...)):
     encoding = face.encode(temp.name)
     print(type(encoding))
     temp.close()
-    response.headers.add('Access-Control-Allow-Origin', '*')
+#     response.headers.add('Access-Control-Allow-Origin', '*')
     return {"Task" : "Image Encoding", "Status" : True, "encoding" : list(encoding)}
 
 
